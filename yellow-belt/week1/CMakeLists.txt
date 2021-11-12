@@ -3,4 +3,4 @@ project(week1)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(week1 main.cpp matrix.cpp matrix.h)
+add_executable(week1 main.cpp matrix_task/matrix.cpp matrix_task/matrix.h "integral types/average_temperature_task.cpp" "integral types/parallelepiped.cpp")
