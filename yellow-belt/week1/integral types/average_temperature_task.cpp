@@ -44,6 +44,7 @@ void SolveAvgTemperature() {
 	PrintVector(greater);
 }
 
-int main() {
+int main1() {
 	SolveAvgTemperature();
+	return 0;
 }

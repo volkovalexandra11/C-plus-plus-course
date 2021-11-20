@@ -23,10 +23,7 @@ void SolveRectPar() {
 	cout << sum * density;
 }
 
-int main() {
-//	SolveAvgTemperature();
+int main2() {
 	SolveRectPar();
-//	cout << std::boolalpha;
-//	cout << numeric_limits<double>::max() << endl;
-//	cout << (pow(10,19) > static_cast<double>(numeric_limits<uint64_t>::max()));
+	return 0;
 }
