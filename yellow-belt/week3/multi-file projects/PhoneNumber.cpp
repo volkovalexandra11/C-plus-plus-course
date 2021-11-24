@@ -1,52 +1,60 @@
 #include <sstream>
-#include "PhoneNumber.h"
+#include "phone_number.h"
 
-PhoneNumber::PhoneNumber(const string& international_number) {
-    stringstream ss(international_number);
+PhoneNumber::PhoneNumber(const string &international_number) {
+	stringstream ss(international_number);
 
-    char first_symbol;
-    ss >> first_symbol;
-    if (first_symbol != '+')
-        throw invalid_argument("Must start with +");
+	char first_symbol;
+	ss >> first_symbol;
+	if (first_symbol != '+')
+		throw invalid_argument("Must start with +");
 
-    int temp;
+	int temp;
 
-    if (!(ss >> temp)) {
-        throw invalid_argument("Must have country code");
-    }
+	if (!(ss >> temp)) {
+		throw invalid_argument("Must have country code");
+	}
 
-    country_code_ = to_string(temp);
+	country_code_ = to_string(temp);
 
-    if (ss.peek() != '-') {
-        throw invalid_argument("Must be separated with -");
-    }
+	if (ss.peek() != '-') {
+		throw invalid_argument("Must be separated with -");
+	}
 
-    ss.ignore();
+	ss.ignore();
 
 
-    if (!(ss >> temp)) {
-        throw invalid_argument("Must have city code");
-    }
+	if (!(ss >> temp)) {
+		throw invalid_argument("Must have city code");
+	}
 
-    if (ss.peek() != '-') {
-        throw invalid_argument("Must be separated with -");
-    }
+	city_code_ = to_string(temp);
 
-    ss.ignore();
+	if (ss.peek() != '-') {
+		throw invalid_argument("Must be separated with -");
+	}
 
-    if (!(ss >> local_number_)) {
-        throw invalid_argument("Must have local number");
-    }
+	ss.ignore();
+
+	if (!(ss >> local_number_)) {
+		throw invalid_argument("Must have local number");
+	}
 }
 
 string PhoneNumber::GetCityCode() const {
-    return city_code_;
+	return city_code_;
 }
 
 string PhoneNumber::GetCountryCode() const {
-    return country_code_;
+	return country_code_;
 }
 
 string PhoneNumber::GetLocalNumber() const {
-    return local_number_;
+	return local_number_;
+}
+
+string PhoneNumber::GetInternationalNumber() const {
+	stringstream ss;
+	ss << "+" << country_code_ << "-" << city_code_ << "-" << local_number_;
+	return ss.str();
 }
