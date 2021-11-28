@@ -5,7 +5,6 @@
 
 using namespace std;
 
-//comment
 template<typename InputIt>
 int ComputeMedianAge(InputIt range_begin, InputIt range_end);
 
@@ -36,8 +35,6 @@ struct Person {
   Gender gender;  // пол
   bool is_employed;  // имеет ли работу
 };
-
-//comment
 
 struct Answer {
   string message;
@@ -109,9 +106,4 @@ void PrintStats(const vector<Person>& persons) {
     for (auto func: funcs) {
         cout << func(persons) << endl;
     }
-}
-
-int main() {
-    cout << "Hello world!" << endl;
-    return 0;
 }
