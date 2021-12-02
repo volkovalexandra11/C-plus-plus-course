@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 
@@ -13,12 +14,12 @@ public:
 	};
 
 	void VisitPlaces(const vector<string>& places) {
-		for (auto p: places) {
+		for (const auto& p: places) {
 			Walk(p);
 		}
 	}
 
-	string GetName() {
+	string GetName() const {
 		return Name;
 	}
 
@@ -27,8 +28,25 @@ public:
 	}
 
 protected:
-	string Name;
-	string Type;
+	const string Name;
+
+	void Log(vector<string>& strings) {
+		//можно было бы дальше убирать дублирование, но как-то так себе,
+		// потому что ну там шило на мыло меняется
+		auto str = FormatStr(strings);
+		cout << Type << ": " << Name << str;
+	}
+
+private:
+	const string Type;
+
+	static string FormatStr(const vector<string>& parts) {
+		ostringstream os;
+		for (const auto& p: parts) {
+			os << p;
+		}
+		return os.str();
+	}
 };
 
 class Student : public Person {
@@ -38,20 +56,23 @@ public:
 			FavouriteSong(favouriteSong) {}
 
 	void Learn() {
-		cout << "Student: " << Name << " learns" << endl;
+		vector<string> strings = {" learns"};
+		Log(strings);
 	}
 
 	void Walk(const string& destination) override {
-		cout << "Student: " << Name << " walks to: " << destination << endl;
+		vector<string> strings = {" walks to: ", destination};
+		Log(strings);
 		SingSong();
 	}
 
 	void SingSong() {
-		cout << "Student: " << Name << " sings a song: " << FavouriteSong << endl;
+		vector<string> strings = {" sings a song: ", FavouriteSong};
+		Log(strings);
 	}
 
 private:
-	string FavouriteSong;
+	const string FavouriteSong;
 };
 
 
@@ -61,11 +82,12 @@ public:
 			Person(name, "Teacher"), Subject(subject) {}
 
 	void Teach() {
-		cout << "Teacher: " << Name << " teaches: " << Subject << endl;
+		vector<string> strings = {" teaches: ", Subject};
+		Log(strings);
 	}
 
 private:
-	string Subject;
+	const string Subject;
 };
 
 
@@ -74,10 +96,12 @@ public:
 	Policeman(const string& name) :
 			Person(name, "Policeman") {}
 
-	void Check(Person p) {
-		cout << "Policeman: "
-			 << Name << " checks "
-			 << p.GetType() << ". " << p.GetType() << "'s Name is: " << p.GetName() << endl;
+	void Check(const Person& p) {
+		vector<string> strings = {
+				" checks ", p.GetType(), ". ",
+				p.GetType(), "'s Name is: ", p.GetName()
+		};
+		Log(strings);
 	}
 };
 
