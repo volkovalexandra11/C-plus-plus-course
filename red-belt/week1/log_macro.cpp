@@ -73,4 +73,5 @@ void TestLog() {
 int main2() {
 	TestRunner tr;
 	RUN_TEST(tr, TestLog);
+	return 0;
 }
