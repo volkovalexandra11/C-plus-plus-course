@@ -1,12 +1,3 @@
-//#include <iostream>
-//
-//using namespace std;
-//
-//int main() {
-//	cout << "Hello, world!" << endl;
-//	return 0;
-//}
-
 #include "airline_ticket.h"
 #include "test_runner.h"
 
@@ -50,7 +41,7 @@ bool operator==(const Time& l, const Time& r) {
 	return l.hours == r.hours && l.minutes == r.minutes;
 }
 
-#define SORT_BY(field) [](AirlineTicket& l, AirlineTicket& r) { return l.field < r.field}
+#define SORT_BY(field) [](AirlineTicket& l, AirlineTicket& r) { return l.field < r.field; }
 
 void TestSortBy() {
 	vector<AirlineTicket> tixs = {
@@ -79,7 +70,7 @@ void TestSortBy() {
 	ASSERT_EQUAL(tixs.back().departure_time, (Time{23, 00}));
 }
 
-int main() {
+int main3() {
 	TestRunner tr;
 	RUN_TEST(tr, TestSortBy);
 	return 0;
