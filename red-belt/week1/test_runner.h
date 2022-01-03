@@ -1,10 +1,12 @@
+#pragma once
+
+#include <sstream>
+#include <stdexcept>
+#include <iostream>
 #include <map>
 #include <set>
-#include <sstream>
+#include <string>
 #include <vector>
-#include <vector>
-#include <iostream>
-#include <stdexcept>
 
 using namespace std;
 
@@ -52,7 +54,7 @@ ostream& operator << (ostream& os, const map<K, V>& m) {
 
 template<class T, class U>
 void AssertEqual(const T& t, const U& u, const string& hint = {}) {
-	if (t != u) {
+	if (!(t == u)) {
 		ostringstream os;
 		os << "Assertion failed: " << t << " != " << u;
 		if (!hint.empty()) {
@@ -62,7 +64,7 @@ void AssertEqual(const T& t, const U& u, const string& hint = {}) {
 	}
 }
 
-void Assert(bool b, const string& hint) {
+inline void Assert(bool b, const string& hint) {
 	AssertEqual(b, true, hint);
 }
 
@@ -92,3 +94,21 @@ public:
 private:
 	int fail_count = 0;
 };
+
+#define ASSERT_EQUAL(x, y) {            \
+  ostringstream os;                     \
+  os << #x << " != " << #y << ", "      \
+    << __FILE__ << ":" << __LINE__;     \
+  AssertEqual(x, y, os.str());          \
+}
+
+#define ASSERT(x) {                     \
+  ostringstream os;                     \
+  os << #x << " is false, "             \
+    << __FILE__ << ":" << __LINE__;     \
+  Assert(x, os.str());                  \
+}
+
+#define RUN_TEST(tr, func) \
+  tr.RunTest(func, #func)
+
