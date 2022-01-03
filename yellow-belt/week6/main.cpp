@@ -10,7 +10,9 @@
 using namespace std;
 
 string ParseEvent(istream& is) {
-	// Р РµР°Р»РёР·СѓР№С‚Рµ СЌС‚Сѓ С„СѓРЅРєС†РёСЋ
+	string event;
+	getline(is, event, '\n');
+	return event;
 }
 
 void TestAll();
