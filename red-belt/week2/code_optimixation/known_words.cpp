@@ -26,7 +26,7 @@ public:
 	}
 };
 
-int main() {
+int main2() {
 	Learner learner;
 	string line;
 	while (getline(cin, line)) {
@@ -42,4 +42,5 @@ int main() {
 	for (const auto& word : learner.KnownWords()) {
 		cout << word << "\n";
 	}
+	return 0;
 }

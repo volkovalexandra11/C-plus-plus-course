@@ -117,7 +117,7 @@ private:
 };
 
 
-int main() {
+int main5() {
 	ios::sync_with_stdio(false);
 	cin.tie(nullptr);
 
