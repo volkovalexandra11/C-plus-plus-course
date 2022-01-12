@@ -85,7 +85,7 @@ void TestObjectPool() {
 	pool.Deallocate(p1);
 }
 
-int main() {
+int main3() {
 	TestRunner tr;
 	RUN_TEST(tr, TestObjectPool);
 	return 0;

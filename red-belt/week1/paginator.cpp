@@ -166,4 +166,5 @@ int main7() {
 	RUN_TEST(tr, TestPageSizes);
 	RUN_TEST(tr, TestConstContainer);
 	RUN_TEST(tr, TestPagePagination);
+	return 0;
 }
