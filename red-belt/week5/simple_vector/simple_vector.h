@@ -54,17 +54,33 @@ public:
 		return capacity_;
 	};
 
-	void PushBack(const T& value) {
+//	void PushBack(const T& value) {
+//		if (!capacity_) {
+//			Resize(1);
+//		}
+//		if (size_ == capacity_) {
+//			Resize(capacity_ * 2);
+//		}
+//		*end_ = value;
+//		size_++;
+//		end_++;
+//	};
+
+	void PushBack(T value) {
 		if (!capacity_) {
 			Resize(1);
 		}
 		if (size_ == capacity_) {
 			Resize(capacity_ * 2);
 		}
-		*end_ = value;
+		*end_ = move(value);
 		size_++;
 		end_++;
 	};
+
+//	SimpleVector<T>& operator=(const SimpleVector<T>& other) = delete;
+//	SimpleVector(const SimpleVector& other) = delete;
+
 
 	SimpleVector<T>& operator=(const SimpleVector<T>& other) {
 		delete[] data_;
@@ -79,33 +95,28 @@ public:
 		return *this;
 	}
 
-//	SimpleVector<T>& operator=(SimpleVector&& other) {
-//		data_ = other.data_;
-//		capacity_ = other.Capacity();
-//		size_ = other.Size();
-//
-//		other.data_ = nullptr;
-//		other.size_ = other.capacity_ = 0;
-//
-//		return *this;
-//	}
+	SimpleVector<T>& operator=(SimpleVector&& other) {
+		data_ = other.data_;
+		capacity_ = other.Capacity();
+		size_ = other.Size();
+
+		other.data_ = nullptr;
+		other.size_ = other.capacity_ = 0;
+
+		return *this;
+	}
+
+
+	SimpleVector(SimpleVector&& other)  noexcept : data_(other.data_),
+										 size_(other.size_), capacity_(other.capacity_) {
+		other.data_ = nullptr;
+		other.size_ = other.capacity_ = 0;
+	}
 
 	SimpleVector(const SimpleVector& other) : data_(new T[other.capacity_]),
 											  size_(other.size_), capacity_(other.capacity_) {
 		copy(other.begin(), other.end(), begin());
 	}
-
-
-//	SimpleVector(SimpleVector&& other) : data_(other.data_),
-//										 size_(other.size_), capacity_(other.capacity_) {
-//		other.data_ = nullptr;
-//		other.size_ = other.capacity_ = 0;
-//	}
-
-//	SimpleVector(const SimpleVector& other) : data_(new T[other.capacity_]),
-//											  size_(other.size_), capacity_(other.capacity_) {
-//		copy(other.begin(), other.end(), begin());
-//	}
 
 private:
 	T *data_;
@@ -115,10 +126,10 @@ private:
 
 	void Resize(size_t new_size) {
 		T *temp_data = new T[new_size];
-		size_t old_size = size_;
+//		size_t old_size = size_;
 		capacity_ = new_size;
 		for (size_t i = 0; i < size_; ++i) {
-			temp_data[i] = data_[i];
+			temp_data[i] = move(data_[i]);
 		}
 		delete[] data_;
 		data_ = temp_data;
