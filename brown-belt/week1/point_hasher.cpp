@@ -155,7 +155,7 @@ void TestDistribution() {
 	ASSERT(pearson_stat < critical_value);
 }
 
-int main() {
+int main4() {
 	TestRunner tr;
 	RUN_TEST(tr, TestSmoke);
 	RUN_TEST(tr, TestPurity);
