@@ -3,4 +3,4 @@ project(week5)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(week5 main.cpp task_stats.cpp)
+add_executable(week5 main.cpp booking.cpp)
