@@ -6,8 +6,7 @@
 
 using namespace std;
 
-
- Перечислимый тип для статуса задачи
+//Перечислимый тип для статуса задачи
 enum class TaskStatus {
 	NEW,          // новая
 	IN_PROGRESS,  // в разработке
