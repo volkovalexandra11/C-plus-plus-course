@@ -3,4 +3,4 @@ project(week5)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(week5 main.cpp test_runner.h filter_domains.cpp)
+add_executable(week5 main.cpp test_runner.h budget_good_base.cpp)
